@@ -2,8 +2,8 @@
  * DOM SELECTORS
  */
 
- const startButton = document.querySelector(".js-start-button");
- // TODO: Add the missing query selectors:
+// TODO: Add the missing query selectors:
+const startButton = document.querySelector(".js-start-button");
  const statusSpan = document.querySelector("js-status"); // Use querySelector() to get the status element
  const heading = document.querySelector("h1"); // Use querySelector() to get the heading element
  const padContainer = document.querySelectorAll("js-pad-container"); // Use querySelector() to get the heading element
@@ -61,7 +61,7 @@ let roundCount = 0; // track the number of rounds that have been played so far
 
 padContainer.addEventListener("click", padHandler);
 // TODO: Add an event listener `startButtonHandler()` to startButton.
-
+startButton.addEventListener("click", startButtonHandler)
 /**
  * EVENT HANDLERS
  */
@@ -82,7 +82,8 @@ padContainer.addEventListener("click", padHandler);
  */
 function startButtonHandler() {
   // TODO: Write your code here.
-
+const maxRounds = setLevel();
+roundCount = 1; 
   return { startButton, statusSpan };
 }
 
