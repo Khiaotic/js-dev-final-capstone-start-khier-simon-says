@@ -111,6 +111,10 @@ function padHandler(event) {
   if (!color) return;
 
   // TODO: Write your code here.
+  
+  const pad = pads.find((pad) => pad.color === color)
+  pad.sound.play()
+  checkPress(color)
   return color;
 }
 
@@ -177,9 +181,9 @@ case 1:
  * getRandomItem([1, 2, 3, 4]) //> returns 1
  */
 function getRandomItem(collection) {
-  // if (collection.length === 0) return null;
-  // const randomIndex = Math.floor(Math.random() * collection.length);
-  // return collection[randomIndex];
+  if (collection.length === 0) return null;
+  const randomIndex = Math.floor(Math.random() * collection.length);
+  return collection[randomIndex];
 }
 
 /**
@@ -206,6 +210,14 @@ function setText(element, text) {
 
 function activatePad(color) {
   // TODO: Write your code here.
+  const pad = pads.find((pad) => pad.color === color)
+  if (pad) {
+    pad.selector.classList.add("activated")
+    pad.sound.play()
+    setTimeout(() => {
+      pad.selector.classList.remove("activated")
+    }, 500)
+  }
 }
 
 /**
