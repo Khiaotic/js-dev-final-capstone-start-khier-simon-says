@@ -4,9 +4,11 @@
 
 // TODO: Add the missing query selectors:
 const startButton = document.querySelector(".js-start-button");
- const statusSpan = document.querySelector("js-status"); // Use querySelector() to get the status element
+ const statusSpan = document.querySelector(".js-status"); // Use querySelector() to get the status element
  const heading = document.querySelector("h1"); // Use querySelector() to get the heading element
- const padContainer = document.querySelectorAll("js-pad-container"); // Use querySelector() to get the heading element
+//  const padContainer = document.querySelectorAll(".js-pad-container"); // Use querySelector() to get the heading element
+ const padContainer = document.querySelector(".js-pad-container")
+
 
 /**
  * VARIABLES
@@ -59,7 +61,9 @@ let roundCount = 0; // track the number of rounds that have been played so far
  * EVENT LISTENERS
  */
 
-padContainer.addEventListener("click", padHandler);
+pads.forEach((pad) => {
+  pad.selector.addEventListener("click", padHandler)
+})
 // TODO: Add an event listener `startButtonHandler()` to startButton.
 startButton.addEventListener("click", startButtonHandler)
 /**
@@ -82,6 +86,8 @@ startButton.addEventListener("click", startButtonHandler)
  */
 function startButtonHandler() {
   // TODO: Write your code here.
+  
+  maxRoundCount = setLevel()
 roundCount = 1; 
   startButton.classList.add("hidden");
   statusSpan.classList.remove("hidden");
@@ -235,13 +241,18 @@ function activatePad(color) {
 
 function activatePads(sequence) {
   // TODO: Write your code here.
-  let millisecondsDelay = 600
-  sequence.forEach((color) => {
+  sequence.forEach((color, index) => {
     setTimeout(() => {
       activatePad(color)
-    }, delay)
-    millisecondsDelay += 600
+    }, index * 600)
   })
+  // let millisecondsDelay = 600
+  // sequence.forEach((color) => {
+  //   setTimeout(() => {
+  //     activatePad(color)
+  //   }, delay)
+  //   millisecondsDelay += 600
+  // })
 }
 
 /**
@@ -269,7 +280,10 @@ function activatePads(sequence) {
  */
  function playComputerTurn() {
   // TODO: Write your code here.
-  padContainer.classList.add("unclickable")
+  const padContainers = document.querySelectorAll(".js-pad-container")
+  padContainers.forEach((container) => {
+    container.classList.add("unclickable")
+  })
   setText(statusSpan, "The computer's turn...")
   setText(heading, `Round ${roundCount} of ${maxRoundCount}`)
 
@@ -278,8 +292,10 @@ function activatePads(sequence) {
   computerSequence.push(randoColor)
 
   activatePads(computerSequence)
-  const sequenceDuration = roundCount * 600
-  setTimeout(() => playHumanTurn(roundCount), sequenceDuration + 1000); // 5
+
+
+  const sequenceDuration = computerSequence.length * 600
+  setTimeout(() => playHumanTurn(), sequenceDuration); // 5
 }
 
 /**
@@ -292,8 +308,8 @@ function activatePads(sequence) {
 function playHumanTurn() {
   // TODO: Write your code here.
 
-  padContainer.classList.remove("unclickable")
-  const remainingPlays = maxRoundCount - roundCount + 1
+ padContainer.classList.remove("unclickable")
+ const remainingPlays = maxRoundCount - playerSequence.length
 
   setText(statusSpan, `Your turn! ${remainingPlays} presses left.`)
 }
@@ -351,6 +367,17 @@ function checkPress(color) {
 
 function checkRound() {
   // TODO: Write your code here.
+  if (playerSequence.length === maxRoundCount) {
+    resetGame("Congratulation!")
+  } else {
+    roundCount++
+    playerSequence = []
+    setText(statusSpan, "Nice! Keep Goin!")
+
+    setTimeout(() => {
+      playComputerTurn()
+    }, 1000)
+  }
 }
 
 /**
