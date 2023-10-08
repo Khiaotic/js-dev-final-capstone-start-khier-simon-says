@@ -82,7 +82,6 @@ startButton.addEventListener("click", startButtonHandler)
  */
 function startButtonHandler() {
   // TODO: Write your code here.
-const maxRounds = setLevel();
 roundCount = 1; 
   startButton.classList.add("hidden");
   statusSpan.classList.remove("hidden");
@@ -292,6 +291,11 @@ function activatePads(sequence) {
  */
 function playHumanTurn() {
   // TODO: Write your code here.
+
+  padContainer.classList.remove("unclickable")
+  const remainingPlays = maxRoundCount - roundCount + 1
+
+  setText(statusSpan, `Your turn! ${remainingPlays} presses left.`)
 }
 
 /**
@@ -318,6 +322,16 @@ function playHumanTurn() {
  */
 function checkPress(color) {
   // TODO: Write your code here.
+  if (playerSequence.length === maxRoundCount) {
+    resetGame("Congrats! You've completed all rounds.")
+  } else {
+    roundCount ++
+    playerSequence = []
+
+    setTimeout(() => {
+      playComputerTurn()
+    }, 1000)
+  }
 }
 
 /**
