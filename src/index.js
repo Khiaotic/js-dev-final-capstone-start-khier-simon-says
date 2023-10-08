@@ -236,6 +236,13 @@ function activatePad(color) {
 
 function activatePads(sequence) {
   // TODO: Write your code here.
+  let millisecondsDelay = 600
+  sequence.forEach((color) => {
+    setTimeout(() => {
+      activatePad(color)
+    }, delay)
+    millisecondsDelay += 600
+  })
 }
 
 /**
@@ -263,7 +270,16 @@ function activatePads(sequence) {
  */
  function playComputerTurn() {
   // TODO: Write your code here.
+  padContainer.classList.dd("unclickable")
+  setText(statusSpan, "The computer's turn...")
+  setText(heading, `Round ${roundCount} of ${maxRoundCount}`)
 
+
+  const randoColor = getRandomItem(["red", "yellow", "blue", "green"])
+  computerSequence.push(randoColor)
+
+  activatePad(computerSequence)
+  const sequenceDuration = roundCount * 600
   setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 1000); // 5
 }
 
