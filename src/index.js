@@ -280,10 +280,13 @@ function activatePads(sequence) {
  */
  function playComputerTurn() {
   // TODO: Write your code here.
-  const padContainers = document.querySelectorAll(".js-pad-container")
-  padContainers.forEach((container) => {
-    container.classList.add("unclickable")
-  })
+  // const padContainers = document.querySelectorAll(".js-pad-container")
+  // padContainers.forEach((container) => {
+  //   container.classList.add("unclickable")
+  // })
+
+padContainer.classList.add("unclickable")
+
   setText(statusSpan, "The computer's turn...")
   setText(heading, `Round ${roundCount} of ${maxRoundCount}`)
 
@@ -295,7 +298,9 @@ function activatePads(sequence) {
 
 
   const sequenceDuration = computerSequence.length * 600
-  setTimeout(() => playHumanTurn(), sequenceDuration); // 5
+  setTimeout(() => {
+    playHumanTurn();},
+     sequenceDuration + 1000); // 5
 }
 
 /**
