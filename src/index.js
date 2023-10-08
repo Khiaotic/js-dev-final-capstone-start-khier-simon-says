@@ -84,7 +84,9 @@ function startButtonHandler() {
   // TODO: Write your code here.
 const maxRounds = setLevel();
 roundCount = 1; 
-  return { startButton, statusSpan };
+  startButton.classList.add("hidden");
+  statusSpan.classList.remove("hidden");
+  playComputerTurn()
 }
 
 /**
