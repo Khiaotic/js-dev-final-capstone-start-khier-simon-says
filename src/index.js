@@ -141,6 +141,24 @@ function padHandler(event) {
  */
 function setLevel(level = 1) {
   // TODO: Write your code here.
+  switch(level){
+case 1:
+  maxRoundCount = 8;
+  break;
+  case 2:
+    maxRoundCount = 14;
+    break;
+    case 3:
+      maxRoundCount = 20;
+      break;
+      case 4:
+        maxRoundCount = 31;
+        break;
+        default:
+          return "Please enter level 1, 2, 3, or 4";
+
+        }
+        return maxRoundCount
 }
 
 /**
@@ -169,6 +187,7 @@ function getRandomItem(collection) {
  */
 function setText(element, text) {
   // TODO: Write your code here.
+  element.textContent = text
   return element;
 }
 
@@ -304,12 +323,17 @@ function checkRound() {
 function resetGame(text) {
   // TODO: Write your code here.
 
+  computerSequence = []
+  playerSequence = []
+  roundCount = 0
+
+
   // Uncomment the code below:
-  // alert(text);
-  // setText(heading, "Simon Says");
-  // startButton.classList.remove("hidden");
-  // statusSpan.classList.add("hidden");
-  // padContainer.classList.add("unclickable");
+  alert(text);
+  setText(heading, "Simon Says");
+  startButton.classList.remove("hidden");
+  statusSpan.classList.add("hidden");
+  padContainer.classList.add("unclickable");
 }
 
 /**
