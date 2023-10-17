@@ -85,12 +85,17 @@ startButton.addEventListener("click", startButtonHandler)
  *
  */
 function startButtonHandler() {
+  // const startButton = document.querySelector(".js-start-button")
+  startButton.removeEventListener("click", startButtonHandler)
+  
   // TODO: Write your code here.
+
   
   maxRoundCount = setLevel()
 roundCount = 1; 
   startButton.classList.add("hidden");
   statusSpan.classList.remove("hidden");
+  playerSequence = []
   playComputerTurn()
 }
 
@@ -120,7 +125,7 @@ function padHandler(event) {
   const pad = pads.find((pad) => pad.color === color)
   pad.sound.play()
   checkPress(color)
-  return color;
+  // return color;
 }
 
 /**
@@ -300,7 +305,7 @@ padContainer.classList.add("unclickable")
   const sequenceDuration = computerSequence.length * 600
   setTimeout(() => {
     playHumanTurn();},
-     sequenceDuration + 1000); // 5
+     sequenceDuration + 500 * computerSequence.length); // 5
 }
 
 /**
@@ -314,7 +319,7 @@ function playHumanTurn() {
   // TODO: Write your code here.
 
  padContainer.classList.remove("unclickable")
- const remainingPlays = maxRoundCount - playerSequence.length
+ const remainingPlays = roundCount
 
   setText(statusSpan, `Your turn! ${remainingPlays} presses left.`)
 }
@@ -343,17 +348,40 @@ function playHumanTurn() {
  */
 function checkPress(color) {
   // TODO: Write your code here.
-  if (playerSequence.length === maxRoundCount) {
-    resetGame("Congrats! You've completed all rounds.")
-  } else {
-    roundCount ++
-    playerSequence = []
-
-    setTimeout(() => {
-      playComputerTurn()
-    }, 1000)
+  playerSequence.push(color)
+  const index = playerSequence.length - 1;
+  const remainingPresses = maxRoundCount - playerSequence.length
+  setText(statusSpan, `Your Turn I Guess! ${remainingPresses} preses left my dude`)
+  
+  if (computerSequence[index] !== color) {
+    resetGame("Absolutely not. WRONG. TRY AGAIN")
+    return
   }
+  
+  if (playerSequence.length === maxRoundCount) {
+   
+      setTimeout(checkRound, 1000)
+  
 }
+}
+  
+  
+  
+  
+  
+  
+  
+  // if (playerSequence.length === maxRoundCount) {
+  //   resetGame("Congrats! You've completed all rounds.")
+  // } else {
+  //   roundCount ++
+  //   playerSequence = []
+
+  //   setTimeout(() => {
+  //     playComputerTurn()
+  //   }, 1000)
+  // }
+
 
 /**
  * Checks each round to see if the player has completed all the rounds of the game * or advance to the next round if the game has not finished.
@@ -372,6 +400,7 @@ function checkPress(color) {
 
 function checkRound() {
   // TODO: Write your code here.
+ 
   if (playerSequence.length === maxRoundCount) {
     resetGame("Congratulation!")
   } else {
