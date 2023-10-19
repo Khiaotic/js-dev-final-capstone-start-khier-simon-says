@@ -290,22 +290,39 @@ function activatePads(sequence) {
   //   container.classList.add("unclickable")
   // })
 
-padContainer.classList.add("unclickable")
+// padContainer.classList.add("unclickable")
 
-  setText(statusSpan, "The computer's turn...")
-  setText(heading, `Round ${roundCount} of ${maxRoundCount}`)
-
-
-  const randoColor = getRandomItem(["red", "yellow", "blue", "green"])
-  computerSequence.push(randoColor)
-
-  activatePads(computerSequence)
+//   setText(statusSpan, "The computer's turn...")
+//   setText(heading, `Round ${roundCount} of ${maxRoundCount}`)
 
 
-  const sequenceDuration = computerSequence.length * 600
+//   const randoColor = getRandomItem(["red", "yellow", "blue", "green"])
+//   computerSequence.push(randoColor)
+
+//   activatePads(computerSequence)
+
+
+//   // const sequenceDuration = computerSequence.length * 600
+//   // setTimeout(() => {
+//   //   playHumanTurn();},
+//   //    sequenceDuration + 500 * computerSequence.length); // 5
+
+//   setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 1000);
+
+padContainer.classList.add("unclickable");
+  setText(statusSpan, "The computer's turn...");
+  setText(heading, `Round ${roundCount} of ${maxRoundCount}`);
+
+  const randoColor = getRandomItem(["red", "yellow", "blue", "green"]);
+  computerSequence.push(randoColor);
+
+  activatePads(computerSequence);
+
+  const sequenceDuration = computerSequence.length * 600;
   setTimeout(() => {
-    playHumanTurn();},
-     sequenceDuration + 500 * computerSequence.length); // 5
+    playHumanTurn();
+  }, sequenceDuration + 500 * computerSequence.length); 
+}
 }
 
 /**
@@ -322,6 +339,13 @@ function playHumanTurn() {
  const remainingPlays = roundCount
 
   setText(statusSpan, `Your turn! ${remainingPlays} presses left.`)
+
+  // pad.forEach((pad) => {{
+  //   pad.selector.addEventListener("click", function (){
+  //     padHandler({target : {dataset: {color : pad.color}}})
+  //   })
+  // }})
+  
 }
 
 /**
@@ -351,7 +375,7 @@ function checkPress(color) {
   playerSequence.push(color)
   const index = playerSequence.length - 1;
   const remainingPresses = maxRoundCount - playerSequence.length
-  setText(statusSpan, `Your Turn I Guess! ${remainingPresses} preses left my dude`)
+  setText(statusSpan, `Your Turn! ${remainingPresses} preses left my dude`)
   
   if (computerSequence[index] !== color) {
     resetGame("Absolutely not. WRONG. TRY AGAIN")
