@@ -97,6 +97,7 @@ roundCount = 1;
   statusSpan.classList.remove("hidden");
   playerSequence = []
   playComputerTurn()
+  startButton.addEventListener("click", startButtonHandler);
 }
 
 /**
@@ -309,21 +310,35 @@ function activatePads(sequence) {
 
 //   setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 1000);
 
-padContainer.classList.add("unclickable");
-  setText(statusSpan, "The computer's turn...");
-  setText(heading, `Round ${roundCount} of ${maxRoundCount}`);
+// padContainer.classList.add("unclickable");
+//   setText(statusSpan, "The computer's turn...");
+//   setText(heading, `Round ${roundCount} of ${maxRoundCount}`);
 
-  const randoColor = getRandomItem(["red", "yellow", "blue", "green"]);
-  computerSequence.push(randoColor);
+//   const randoColor = getRandomItem(["red", "yellow", "blue", "green"]);
+//   computerSequence.push(randoColor);
+
+//   activatePads(computerSequence);
+
+//   const sequenceDuration = computerSequence.length * 600;
+//   setTimeout(() => {
+//     playHumanTurn();
+//   }, sequenceDuration + 500 * computerSequence.length);
+
+padContainer.classList.add("unclickable");
+
+  statusSpan.innerHTML = "The computer's turn...";
+
+  heading.innerHTML = " Round " + roundCount + " of " + maxRoundCount;
+
+  computerSequence.push(getRandomItem(pads).color);
 
   activatePads(computerSequence);
 
-  const sequenceDuration = computerSequence.length * 600;
-  setTimeout(() => {
-    playHumanTurn();
-  }, sequenceDuration + 500 * computerSequence.length); 
+  setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 1000);
+
+
 }
-}
+
 
 /**
  * Allows the player to play their turn.
@@ -377,16 +392,21 @@ function checkPress(color) {
   const remainingPresses = maxRoundCount - playerSequence.length
   setText(statusSpan, `Your Turn! ${remainingPresses} preses left my dude`)
   
-  if (computerSequence[index] !== color) {
+  if (computerSequence[index] !== playerSequence[index]) {
     resetGame("Absolutely not. WRONG. TRY AGAIN")
-    return
+    // return
   }
   
-  if (playerSequence.length === maxRoundCount) {
+//   if (playerSequence.length === maxRoundCount) {
    
-      setTimeout(checkRound, 1000)
+//       setTimeout(checkRound, 1000)
   
-}
+// }
+checkRound()
+if (remainingPresses === 0) {
+  checkRound();
+ }
+
 }
   
   
@@ -430,11 +450,14 @@ function checkRound() {
   } else {
     roundCount++
     playerSequence = []
-    setText(statusSpan, "Nice! Keep Goin!")
+    // setText(statusSpan, "Nice! Keep Goin!")
 
-    setTimeout(() => {
-      playComputerTurn()
-    }, 1000)
+    // setTimeout(() => {
+    //   playComputerTurn()
+    // }, 1000)
+
+    statusSpan.innerHTML = 'Nice! Keep going!';
+    setTimeout(() => playComputerTurn(roundCount), 1000);
   }
 }
 
