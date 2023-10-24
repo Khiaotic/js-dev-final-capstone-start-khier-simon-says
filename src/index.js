@@ -331,15 +331,30 @@ padContainer.classList.add("unclickable");
   statusSpan.innerHTML = "The computer's turn...";
 
   heading.innerHTML = " Round " + roundCount + " of " + maxRoundCount;
+playerSequence = []
+let currentStep = 0
+const playNextStep = () => {
+if (currentStep < computerSequence.length) {
+const colorToActivate = computerSequence[currentStep]
+activatePad(colorToActivate)
+currentStep++
 
-  computerSequence.push(getRandomItem(pads).color);
-
-  activatePads(computerSequence);
-
-  setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 1000);
-
-
+setTimeout(playNextStep, 1000)
+} else {
+setTimeout(() => playHumanTurn(), 1000)
 }
+playNextStep()
+}
+
+
+  // computerSequence.push(getRandomItem(pads).color);
+
+  // activatePads(computerSequence);
+
+  // setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 1000);
+
+
+// }
 
 
 /**
@@ -353,7 +368,7 @@ function playHumanTurn() {
   // TODO: Write your code here.
 
  padContainer.classList.remove("unclickable")
- const remainingPlays = roundCount
+ const remainingPlays = maxRoundCount - playerSequence.length
 
   setText(statusSpan, `Your turn! ${remainingPlays} presses left.`)
 
