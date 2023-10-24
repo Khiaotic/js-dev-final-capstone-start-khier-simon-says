@@ -402,7 +402,7 @@ function checkPress(color) {
 //       setTimeout(checkRound, 1000)
   
 // }
-checkRound()
+
 if (remainingPresses === 0) {
   checkRound();
  }
