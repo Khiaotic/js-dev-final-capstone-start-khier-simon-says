@@ -411,8 +411,9 @@ function checkPress(color) {
   setText(statusSpan, `Your Turn! ${remainingPresses} preses left my dude`)
   
   if (computerSequence[index] !== playerSequence[index]) {
-setTimeout(() => 
-    resetGame("Absolutely not. WRONG. TRY AGAIN"), 1000)
+setTimeout(() => {
+    resetGame("Absolutely not. WRONG. TRY AGAIN")
+           }, 1000)
     // return
   }
   
