@@ -90,13 +90,15 @@ function startButtonHandler() {
   
   // TODO: Write your code here.
 
-  
+  if(roundCount === 0) {
+   
   maxRoundCount = setLevel()
 roundCount = 1; 
   startButton.classList.add("hidden");
   statusSpan.classList.remove("hidden");
   playerSequence = []
   playComputerTurn()
+  }
   startButton.addEventListener("click", startButtonHandler);
 }
 
@@ -393,6 +395,7 @@ function checkPress(color) {
   setText(statusSpan, `Your Turn! ${remainingPresses} preses left my dude`)
   
   if (computerSequence[index] !== playerSequence[index]) {
+setTimeout(() => 
     resetGame("Absolutely not. WRONG. TRY AGAIN")
     // return
   }
@@ -402,7 +405,7 @@ function checkPress(color) {
 //       setTimeout(checkRound, 1000)
   
 // }
-
+checkRound()
 if (remainingPresses === 0) {
   checkRound();
  }
