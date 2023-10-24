@@ -412,7 +412,7 @@ function checkPress(color) {
   
   if (computerSequence[index] !== playerSequence[index]) {
 setTimeout(() => 
-    resetGame("Absolutely not. WRONG. TRY AGAIN")
+    resetGame("Absolutely not. WRONG. TRY AGAIN"), 1000)
     // return
   }
   
