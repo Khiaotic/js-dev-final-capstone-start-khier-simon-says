@@ -342,8 +342,9 @@ currentStep++
 setTimeout(playNextStep, 1000)
 } else {
 setTimeout(() => playHumanTurn(), 1000)
-}}
-playNextStep()
+}
+}
+// playNextStep()
 }
 
 
