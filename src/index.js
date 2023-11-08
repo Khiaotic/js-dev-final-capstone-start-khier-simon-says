@@ -351,9 +351,9 @@ function playHumanTurn() {
   // TODO: Write your code here.
 
  padContainer.classList.remove("unclickable")
- const remainingPlays = roundCount
+ const remainingPresses = maxRoundCount - playerSequence.length
 
-  setText(statusSpan, `Your turn! ${remainingPlays} presses left.`)
+  setText(statusSpan, `Your turn! ${remainingPresses} presses left.`)
 
   // pad.forEach((pad) => {{
   //   pad.selector.addEventListener("click", function (){
@@ -397,11 +397,12 @@ function checkPress(color) {
     // return
   }
   
-//   if (playerSequence.length === maxRoundCount) {
+  if (playerSequence.length === maxRoundCount) {
    
-//       setTimeout(checkRound, 1000)
+      setTimeout(checkRound, 1000)
+  }
   
-// }
+}
 checkRound()
 if (remainingPresses === 0) {
   checkRound();
