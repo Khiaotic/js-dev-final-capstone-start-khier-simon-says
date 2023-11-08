@@ -90,13 +90,15 @@ function startButtonHandler() {
   
   // TODO: Write your code here.
 
-  
+  if(roundCount === 0) {
+   
   maxRoundCount = setLevel()
 roundCount = 1; 
   startButton.classList.add("hidden");
   statusSpan.classList.remove("hidden");
   playerSequence = []
   playComputerTurn()
+  }
   startButton.addEventListener("click", startButtonHandler);
 }
 
@@ -329,15 +331,31 @@ padContainer.classList.add("unclickable");
   statusSpan.innerHTML = "The computer's turn...";
 
   heading.innerHTML = " Round " + roundCount + " of " + maxRoundCount;
+playerSequence = []
+let currentStep = 0
+const playNextStep = () => {
+if (currentStep < computerSequence.length) {
+const colorToActivate = computerSequence[currentStep]
+activatePad(colorToActivate)
+currentStep++
 
-  computerSequence.push(getRandomItem(pads).color);
-
-  activatePads(computerSequence);
-
-  setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 1000);
-
-
+setTimeout(playNextStep, 1000)
+} else {
+setTimeout(() => playHumanTurn(), 1000)
 }
+}
+// playNextStep()
+}
+
+
+  // computerSequence.push(getRandomItem(pads).color);
+
+  // activatePads(computerSequence);
+
+  // setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 1000);
+
+
+// }
 
 
 /**
@@ -351,7 +369,11 @@ function playHumanTurn() {
   // TODO: Write your code here.
 
  padContainer.classList.remove("unclickable")
+<<<<<<< HEAD
  const remainingPresses = maxRoundCount - playerSequence.length
+=======
+ const remainingPlays = maxRoundCount - playerSequence.length
+>>>>>>> 34213db57ea91d4b5b1513deb1002307e4988b2c
 
   setText(statusSpan, `Your turn! ${remainingPresses} presses left.`)
 
@@ -393,7 +415,9 @@ function checkPress(color) {
   setText(statusSpan, `Your Turn! ${remainingPresses} preses left my dude`)
   
   if (computerSequence[index] !== playerSequence[index]) {
+setTimeout(() => {
     resetGame("Absolutely not. WRONG. TRY AGAIN")
+           }, 1000)
     // return
   }
   
