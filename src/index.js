@@ -288,63 +288,25 @@ function activatePads(sequence) {
  */
  function playComputerTurn() {
   // TODO: Write your code here.
-  // const padContainers = document.querySelectorAll(".js-pad-container")
-  // padContainers.forEach((container) => {
-  //   container.classList.add("unclickable")
-  // })
 
-// padContainer.classList.add("unclickable")
-
-//   setText(statusSpan, "The computer's turn...")
-//   setText(heading, `Round ${roundCount} of ${maxRoundCount}`)
-
-
-//   const randoColor = getRandomItem(["red", "yellow", "blue", "green"])
-//   computerSequence.push(randoColor)
-
-//   activatePads(computerSequence)
-
-
-//   // const sequenceDuration = computerSequence.length * 600
-//   // setTimeout(() => {
-//   //   playHumanTurn();},
-//   //    sequenceDuration + 500 * computerSequence.length); // 5
-
-//   setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 1000);
-
-// padContainer.classList.add("unclickable");
-//   setText(statusSpan, "The computer's turn...");
-//   setText(heading, `Round ${roundCount} of ${maxRoundCount}`);
-
-//   const randoColor = getRandomItem(["red", "yellow", "blue", "green"]);
-//   computerSequence.push(randoColor);
-
-//   activatePads(computerSequence);
-
-//   const sequenceDuration = computerSequence.length * 600;
-//   setTimeout(() => {
-//     playHumanTurn();
-//   }, sequenceDuration + 500 * computerSequence.length);
 
 padContainer.classList.add("unclickable");
 
-  statusSpan.innerHTML = "The computer's turn...";
+  statusSpan.textContent = "The computer's turn...";
 
-  heading.innerHTML = " Round " + roundCount + " of " + maxRoundCount;
+  heading.textContent = ` Round ${roundCount} of ${maxRoundCount}`;
 playerSequence = []
-let currentStep = 0
-const playNextStep = () => {
-if (currentStep < computerSequence.length) {
-const colorToActivate = computerSequence[currentStep]
-activatePad(colorToActivate)
-currentStep++
+const sequenceDuration = computerSequence.length * 1000; // Adjust sequence display duration
 
-setTimeout(playNextStep, 1000)
-} else {
-setTimeout(() => playHumanTurn(), 1000)
-}
-}
-// playNextStep()
+  computerSequence.forEach((color, index) => {
+    setTimeout(() => {
+      activatePad(color);
+    }, index * 1000); // Change time interval for sequential activation
+  });
+
+  setTimeout(() => {
+    playHumanTurn();
+  }, sequenceDuration + 1000); // Add additional delay for the player's turn
 }
 
 
@@ -369,19 +331,15 @@ function playHumanTurn() {
   // TODO: Write your code here.
 
  padContainer.classList.remove("unclickable")
-<<<<<<< HEAD
  const remainingPresses = maxRoundCount - playerSequence.length
-=======
- const remainingPlays = maxRoundCount - playerSequence.length
->>>>>>> 34213db57ea91d4b5b1513deb1002307e4988b2c
 
   setText(statusSpan, `Your turn! ${remainingPresses} presses left.`)
 
-  // pad.forEach((pad) => {{
-  //   pad.selector.addEventListener("click", function (){
-  //     padHandler({target : {dataset: {color : pad.color}}})
-  //   })
-  // }})
+  pad.forEach((pad) => {{
+    pad.selector.addEventListener("click", function (){
+      padHandler({target : {dataset: {color : pad.color}}})
+    })
+  }})
   
 }
 
@@ -417,25 +375,19 @@ function checkPress(color) {
   if (computerSequence[index] !== playerSequence[index]) {
 setTimeout(() => {
     resetGame("Absolutely not. WRONG. TRY AGAIN")
-           }, 1000)
+   }, 1000)
     // return
   }
   
-  if (playerSequence.length === maxRoundCount) {
+  if (remainingPresses === 0) {
    
-      setTimeout(checkRound, 1000)
+      setTimeout(() => {
+        checkRound ();
+      },1000)
   }
   
 }
-checkRound()
-if (remainingPresses === 0) {
-  checkRound();
- }
 
-}
-  
-  
-  
   
   
   
@@ -475,13 +427,9 @@ function checkRound() {
   } else {
     roundCount++
     playerSequence = []
-    // setText(statusSpan, "Nice! Keep Goin!")
+   
 
-    // setTimeout(() => {
-    //   playComputerTurn()
-    // }, 1000)
-
-    statusSpan.innerHTML = 'Nice! Keep going!';
+    statusSpan.textContent = 'Nice! Keep going!';
     setTimeout(() => playComputerTurn(roundCount), 1000);
   }
 }
